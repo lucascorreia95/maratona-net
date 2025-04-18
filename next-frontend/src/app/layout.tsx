@@ -3,6 +3,7 @@ import { Montserrat } from "next/font/google";
 import "./globals.css";
 import { Cointainer } from "@/components/Container";
 import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -19,12 +20,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${montserrat.className} antialiased`}>
+    <html lang="pt-BR">
+      <body className={`${montserrat.className} antialiased overflow-x-hidden`}>
         <Header />
         <main>
           <Cointainer>{children}</Cointainer>
         </main>
+        <Footer />
       </body>
     </html>
   );

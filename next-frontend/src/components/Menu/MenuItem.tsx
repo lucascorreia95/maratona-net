@@ -1,7 +1,9 @@
+import { MenuList } from "@/types/category-types";
+
 export interface MenuItemProps {
-  name: string;
+  name: MenuList;
   isSelected: boolean;
-  onClick: (name: string) => void;
+  onClick: (name: MenuList) => void;
 }
 
 export function MenuItem({ name, isSelected, onClick }: MenuItemProps) {

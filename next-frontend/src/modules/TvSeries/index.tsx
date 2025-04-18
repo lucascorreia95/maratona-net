@@ -4,22 +4,21 @@ import { Loading, ShowCase } from "@/components/ShowCase";
 import useDiscover from "@/hooks/useDiscover";
 import { Error } from "@/icons/Error";
 import { Categories } from "@/types/category-types";
-import { MovieCategories } from "@/types/movie-categories";
 import { ShowType } from "@/types/show-types";
+import { TvCategories } from "@/types/tv-categories";
 import { useCallback, useState } from "react";
 
 const list = [
-  MovieCategories.POPULAR,
-  MovieCategories.TOP_RATED,
-  MovieCategories.NOW_PLAYING,
-  MovieCategories.UPCOMING,
+  TvCategories.POPULAR,
+  TvCategories.TOP_RATED,
+  TvCategories.AIRING_TODAY,
 ];
 
-export function MoviesModule() {
-  const [category, setCategory] = useState<Categories>(MovieCategories.POPULAR);
-  const { data, error, loading } = useDiscover(ShowType.MOVIE, category);
+export function TvSeriesModule() {
+  const [category, setCategory] = useState<Categories>(TvCategories.POPULAR);
+  const { data, error, loading } = useDiscover(ShowType.TV, category);
 
-  const handleMenuItemClick = useCallback(async (name: Categories) => {
+  const handleMenuItemClick = useCallback((name: Categories) => {
     setCategory(name);
   }, []);
 
@@ -27,7 +26,7 @@ export function MoviesModule() {
     return (
       <div className="flex flex-col items-center justify-center gap-2 w-full p-12">
         <span className="text-2xl text-center font-semibold text-gray-500">
-          Tivemos um erro ao carregar os filmes.
+          Tivemos um erro ao carregar as séries de tv.
         </span>
         <span className="font-semibold text-gray-500">
           Tente novamente mais tarde.
@@ -40,13 +39,10 @@ export function MoviesModule() {
   return (
     <div className="flex flex-col items-center gap-2 w-full w-max-full">
       <h2 className="text-3xl text-center font-semibold mb-4">
-        Veja a vitrine de filmes por categoria!
+        Veja a vitrine das séries de tv por categoria!
       </h2>
-
       <div className="h-1 w-14 rounded-2xl bg-gray-600" />
-
       <Menu list={list} onMenuChange={handleMenuItemClick} />
-
       {loading ? <Loading /> : <ShowCase list={data!.results} />}
     </div>
   );

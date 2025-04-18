@@ -21,6 +21,22 @@
 
 body {
   background: var(--background);
+  background-image: linear-gradient(to bottom right, #101726, #000000);
+  background-color: #374151;
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+[pulse-shadow] {
+  animation: pulse-shadow 3.5s ease-in-out infinite;
+}
+
+@keyframes pulse-shadow {
+  0%,
+  100% {
+    box-shadow: 0 0 3px 0.3 #e50914;
+  }
+  50% {
+    box-shadow: 0 0 10px 0.8 #e50914;
+  }
 }

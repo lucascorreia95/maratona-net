@@ -1,17 +1,16 @@
 import { useState } from "react";
 import { MenuItem } from "./MenuItem";
+import { MenuList } from "@/types/category-types";
 
 export interface MenuProps {
-  list: {
-    name: string;
-  }[];
-  onMenuChange: (name: string) => void;
+  list: MenuList[];
+  onMenuChange: <T extends MenuList>(name: T) => void;
 }
 
 export function Menu({ list, onMenuChange }: MenuProps) {
-  const [selectedItem, setSelectedItem] = useState<string>(list[0].name);
+  const [selectedItem, setSelectedItem] = useState(list[0]);
 
-  const handleItemClick = (name: string) => {
+  const handleItemClick = (name: MenuList) => {
     setSelectedItem(name);
     onMenuChange(name);
   };
@@ -19,13 +18,13 @@ export function Menu({ list, onMenuChange }: MenuProps) {
   return (
     <nav className="p-4">
       <ul className="flex gap-6 items-center justify-center">
-        {list.map((item) => {
+        {list.map((name) => {
           return (
             <MenuItem
-              key={item.name}
-              name={item.name}
+              key={name}
+              name={name}
               onClick={handleItemClick}
-              isSelected={selectedItem === item.name}
+              isSelected={selectedItem === name}
             />
           );
         })}
