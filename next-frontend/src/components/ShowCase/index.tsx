@@ -1,11 +1,14 @@
-import { ShowCaseItem, ShowCaseItemProps } from "./ShowCaseItem";
+import { ShowCaseItem } from "./ShowCaseItem";
 import { Carousel } from "../Carousel";
+import { ShowType } from "@/types/show-types";
+import { NormalizedDiscoverResult } from "@/types/normalized-discover";
 
 export interface ShowCaseProps {
-  list: ShowCaseItemProps[];
+  list: NormalizedDiscoverResult[];
+  type: ShowType;
 }
 
-export function ShowCase({ list }: ShowCaseProps) {
+export function ShowCase({ list, type }: ShowCaseProps) {
   const settings = {
     dots: true,
     infinite: true,
@@ -27,6 +30,7 @@ export function ShowCase({ list }: ShowCaseProps) {
               rating={item.rating}
               title={item.title}
               key={item.id}
+              type={type}
             />
           </div>
         ))}

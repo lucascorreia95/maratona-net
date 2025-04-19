@@ -47,7 +47,11 @@ export function MoviesModule() {
 
       <Menu list={list} onMenuChange={handleMenuItemClick} />
 
-      {loading ? <Loading /> : <ShowCase list={data!.results} />}
+      {loading ? (
+        <Loading />
+      ) : (
+        <ShowCase list={data!.results} type={ShowType.MOVIE} />
+      )}
     </div>
   );
 }

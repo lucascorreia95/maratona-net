@@ -1,47 +1,91 @@
+"use client";
+import { useParams } from "next/navigation";
+import Image from "next/image";
 import { BackDrop } from "@/components/BackDrop";
 import { Cast } from "@/components/Cast";
-import Image from "next/image";
+import useDetails from "@/hooks/useDetails";
+import { ShowType } from "@/types/show-types";
+import { Error } from "@/icons/Error";
+import Link from "next/link";
+import { Loading } from "@/icons/Loading";
 
-export default function DetailModule({ id }: { id: string }) {
+export default function DetailModule() {
+  const { type, id } = useParams<{ id: string; type: ShowType }>();
+  const { data, loading, error } = useDetails(type, id);
+
+  if (error) {
+    return (
+      <div className="flex flex-col items-center justify-center gap-2 w-full p-12">
+        <span className="text-2xl text-center font-semibold text-gray-500">
+          Tivemos um erro ao carregar os detalhes.
+        </span>
+        <span className="font-semibold text-gray-500">
+          Tente novamente mais tarde.
+        </span>
+        <Error />
+      </div>
+    );
+  }
+
+  if (loading) {
+    return (
+      <div className="flex flex-col items-center gap-2 w-full p-12 min-h-screen mt-24">
+        <span className="text-zinc-600">
+          Estamos carregando as informacoes para voce!
+        </span>
+        <Loading />
+      </div>
+    );
+  }
+
   return (
-    <div className="relative flex flex-row items-center justify-center gap-2 w-full max-w-full p-11">
+    <div className="relative flex flex-row items-center justify-center gap-2 w-full max-w-full p-11 min-h-screen">
       <BackDrop
-        imgSrc="https://image.tmdb.org/t/p/w1920/gMMnf8VRg3Z98WaFmOLr9Jk8pIs.jpg"
+        imgSrc={data?.backdrop_path || ""}
         width={1920}
         height={1080}
-        imgAlt="movie poster"
+        imgAlt={`Poster de ${data?.title}`}
       />
       <div className="rounded-lg overflow-hidden flex-[0_0_auto]">
         <Image
-          src={
-            "https://image.tmdb.org/t/p/w500/7NLY1jNwtZX1yVzwVoBeAhaBE8i.jpg"
-          }
+          src={data?.image || ""}
           width={500}
           height={750}
-          alt="movie poster"
+          alt={`Poster de ${data?.title}`}
+          priority
+          loading="eager"
+          blurDataURL="/images/loading.jpeg"
+          placeholder="blur"
         />
       </div>
       <div className="flex flex-col items-center justify-center gap-4 p-3 max-w-full">
-        <h1 className="text-4xl font-bold">Movie Title</h1>
+        <h1 className="text-4xl font-bold text-center">{data?.title}</h1>
 
-        <span className="text-sm">Apr 18, 2025</span>
-        <span>Aprovacao: 8.584%</span>
+        <span className="text-sm">{data?.date}</span>
+        <span className="text-sm font-semibold">Nota {data?.rating} de 10</span>
 
-        <span className="text-lg font-semibold">
-          Drama | Action | Adventure | Sci-Fi
+        <span className="text-sm font-semibold flex flex-wrap gap-2 items-center justify-center max-w-1/2">
+          {data?.genres.map((genre) => (
+            <span
+              key={genre}
+              className="bg-red-700 text-white px-2 py-1 rounded-full mr-2"
+            >
+              {genre}
+            </span>
+          ))}
         </span>
 
-        <p className="text-base mt-2 mb-8 text-center">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
-          voluptatibus, quisquam voluptatibus. Lorem ipsum dolor sit amet
-          consectetur adipisicing elit. Quisquam voluptatibus, quisquam
-          voluptatibus. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Quisquam voluptatibus, quisquam voluptatibus.
-        </p>
-        <Cast />
-        <button className="bg-red-500 text-white px-4 py-2 mt-4 rounded font-semibold">
-          Acessar pagina
-        </button>
+        <p className="text-base mt-2 mb-8 text-center">{data?.overview}</p>
+        {data?.cast && data.cast.length > 0 && <Cast cast={data?.cast} />}
+        {data?.homepage && (
+          <Link
+            href={data?.homepage || ""}
+            target="_blank"
+            className="bg-red-500 text-white px-4 py-2 mt-4 rounded font-semibold"
+          >
+            Acessar pagina oficial
+          </Link>
+        )}
       </div>
     </div>
   );

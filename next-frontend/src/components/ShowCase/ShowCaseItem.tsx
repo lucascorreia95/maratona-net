@@ -2,6 +2,7 @@ import React, { useCallback } from "react";
 import { Heart } from "@/icons/Heart";
 import Image from "next/image";
 import Link from "next/link";
+import { ShowType } from "@/types/show-types";
 
 export interface ShowCaseItemProps {
   id: number;
@@ -9,6 +10,7 @@ export interface ShowCaseItemProps {
   date: string;
   image: string;
   rating: number;
+  type: ShowType;
 }
 
 export function ShowCaseItem({
@@ -17,6 +19,7 @@ export function ShowCaseItem({
   image,
   rating,
   title,
+  type,
 }: ShowCaseItemProps) {
   const [clientXonMouseDown, setClientXonMouseDown] = React.useState<
     number | null
@@ -51,7 +54,7 @@ export function ShowCaseItem({
 
   return (
     <Link
-      href={`/details/${id}`}
+      href={`/details/${type}/${id}`}
       onClick={handleItemClick}
       onMouseDown={handleOnMouseDown}
       className="flex flex-col items-center justify-center gap-2 relative p-1.5"

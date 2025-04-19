@@ -43,7 +43,11 @@ export function TvSeriesModule() {
       </h2>
       <div className="h-1 w-14 rounded-2xl bg-gray-600" />
       <Menu list={list} onMenuChange={handleMenuItemClick} />
-      {loading ? <Loading /> : <ShowCase list={data!.results} />}
+      {loading ? (
+        <Loading />
+      ) : (
+        <ShowCase list={data!.results} type={ShowType.TV} />
+      )}
     </div>
   );
 }

@@ -19,6 +19,14 @@
   }
 }
 
+*:focus {
+  outline: none;
+}
+
+*:focus-visible {
+  outline: none;
+}
+
 body {
   background: var(--background);
   background-image: linear-gradient(to bottom right, #101726, #000000);

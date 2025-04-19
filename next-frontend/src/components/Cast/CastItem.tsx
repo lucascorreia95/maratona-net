@@ -12,7 +12,7 @@ export function CastItem({ imageAlt, imageUrl, name }: CastItemProps) {
       <Image
         src={imageUrl}
         width={150}
-        height={300}
+        height={225}
         alt={imageAlt}
         className="overflow-hidden rounded-4xl"
       />
