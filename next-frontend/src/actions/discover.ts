@@ -4,20 +4,23 @@ import { getDefaultApiParams } from "@/helpers/getDefaultApiParams";
 import { DiscoverResponse } from "@/types/discover-types";
 import { ShowType } from "@/types/show-types";
 import { genreAction } from "./genre";
-import { filterExcludedGenres } from "@/helpers/filterExcludedGenres";
-import { tvGenresToExclude } from "@/constants/tv-genres-to-exclude";
+import { filterGenres } from "@/helpers/filterGenres";
 import { getCategoryFilter } from "@/helpers/getCategoryFilter";
 import { Categories } from "@/types/category-types";
+import { tvGenresToExclude } from "@/constants/tv-genres-to-exclude";
+import { cartoonGenresToInclude } from "@/constants/cartoon-genres-to-include";
 
 const discoverAction = async (type: ShowType, category: Categories) => {
   "use server";
 
   const defaultParams = getDefaultApiParams(type);
-  const categoryFilter = getCategoryFilter(category);
+  const categoryFilter = getCategoryFilter(category, type);
+  const path = type === ShowType.MOVIE ? "movie" : "tv";
   let excludedGenres;
+  let includeGenres;
 
-  if (type === ShowType.TV) {
-    const genresResponse = await genreAction(type);
+  if (type === ShowType.TV || type === ShowType.CARTOON) {
+    const genresResponse = await genreAction(path);
 
     if (genresResponse.error) {
       return {
@@ -30,25 +33,29 @@ const discoverAction = async (type: ShowType, category: Categories) => {
 
     const genres = genresResponse?.data?.genres || [];
 
-    excludedGenres = filterExcludedGenres(genres, tvGenresToExclude)
-      .map((genre) => genre.id)
-      .join(",");
+    if (type === ShowType.TV) {
+      excludedGenres = filterGenres(genres, tvGenresToExclude);
+    } else {
+      includeGenres = filterGenres(genres, cartoonGenresToInclude);
+    }
   }
 
-  const response = await fetch(
-    `${process.env.BASE_API_URL}/discover/${type}${defaultParams}${
-      excludedGenres ? `&without_genres=${excludedGenres}` : ""
-    } &${categoryFilter}`,
-    {
-      method: "GET",
-      cache: "force-cache",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${process.env.API_ACCESS_TOKEN}`,
-      },
-      next: { revalidate: 3600 },
-    }
-  );
+  const urlToFetch = `${
+    process.env.BASE_API_URL
+  }/discover/${path}${defaultParams}${
+    excludedGenres ? `&without_genres=${excludedGenres}` : ""
+  }${includeGenres ? `&with_genres=${includeGenres}` : ""}
+  &${categoryFilter}`;
+
+  const response = await fetch(urlToFetch, {
+    method: "GET",
+    cache: "force-cache",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${process.env.API_ACCESS_TOKEN}`,
+    },
+    next: { revalidate: 3600 },
+  });
 
   if (!response.ok) {
     return {

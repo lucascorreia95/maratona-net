@@ -25,8 +25,6 @@ function useDetails(type: ShowType, id: string) {
       try {
         const response = await detailsAction(type, id);
 
-        console.log("response: ", response);
-
         if (isMounted) {
           if (response.error) {
             setError(response);

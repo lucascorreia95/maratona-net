@@ -1,1 +1,7 @@
-export const tvGenresToExclude = ["News", "Reality", "Soap", "Talk"];
+export const tvGenresToExclude = [
+  "News",
+  "Reality",
+  "Soap",
+  "Talk",
+  "Animação",
+];

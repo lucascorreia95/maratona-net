@@ -1,13 +1,12 @@
 "use server";
 
 import { GenreResponse } from "@/types/genre-types";
-import { ShowType } from "@/types/show-types";
 
-const genreAction = async (type: ShowType) => {
+const genreAction = async (path: string) => {
   "use server";
 
   const response = await fetch(
-    `${process.env.BASE_API_URL}/genre/${type}/list?language=pt-BR`,
+    `${process.env.BASE_API_URL}/genre/${path}/list?language=pt-BR`,
     {
       method: "GET",
       cache: "force-cache",
