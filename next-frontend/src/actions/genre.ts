@@ -10,10 +10,12 @@ const genreAction = async (type: ShowType) => {
     `${process.env.BASE_API_URL}/genre/${type}/list?language=pt-BR`,
     {
       method: "GET",
+      cache: "force-cache",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${process.env.API_ACCESS_TOKEN}`,
       },
+      next: { revalidate: 3600 },
     }
   );
 

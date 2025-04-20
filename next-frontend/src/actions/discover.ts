@@ -41,10 +41,12 @@ const discoverAction = async (type: ShowType, category: Categories) => {
     } &${categoryFilter}`,
     {
       method: "GET",
+      cache: "force-cache",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${process.env.API_ACCESS_TOKEN}`,
       },
+      next: { revalidate: 3600 },
     }
   );
 
