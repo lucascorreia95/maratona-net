@@ -39,7 +39,7 @@ export function MoviesModule() {
 
   return (
     <div className="flex flex-col items-center gap-2 w-full w-max-full">
-      <h2 className="text-3xl text-center font-semibold mb-4">
+      <h2 className="text-xl md:text-3xl text-center font-semibold mb-4">
         Veja a vitrine de filmes por categoria!
       </h2>
 

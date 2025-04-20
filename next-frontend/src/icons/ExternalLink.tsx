@@ -1,4 +1,4 @@
-export function ExternalLink() {
+export function ExternalLink({ color }: { color?: string }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -14,7 +14,7 @@ export function ExternalLink() {
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
-          stroke="#ffffff"
+          stroke={color || "#ffffff"}
         />
       </g>
     </svg>

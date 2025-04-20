@@ -10,16 +10,40 @@ export interface ShowCaseProps {
 
 export function ShowCase({ list, type }: ShowCaseProps) {
   const settings = {
-    dots: true,
     infinite: true,
     autoplay: true,
     autoPlaySpeed: 5000,
     speed: 500,
     slidesToShow: 5,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          infinite: true,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 2,
+          initialSlide: 2,
+        },
+      },
+      {
+        breakpoint: 560,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
 
   return (
-    <div className="w-full max-w-full">
+    <div className="w-full max-w-full p-4">
       <Carousel settings={settings}>
         {list.map((item) => (
           <div key={item.id}>

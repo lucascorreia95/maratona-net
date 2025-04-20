@@ -29,8 +29,8 @@ export default function DetailModule() {
 
   if (loading) {
     return (
-      <div className="flex flex-col items-center gap-2 w-full p-12 min-h-screen mt-24">
-        <span className="text-zinc-600">
+      <div className="flex flex-col items-center justify-start gap-2 w-full p-12 min-h-screen mt-24">
+        <span className="text-zinc-600 text-center">
           Estamos carregando as informacoes para voce!
         </span>
         <Loading />
@@ -39,14 +39,17 @@ export default function DetailModule() {
   }
 
   return (
-    <div className="relative flex flex-row items-center justify-center gap-2 w-full max-w-full p-11 min-h-screen">
+    <div className="relative flex flex-col items-center md:flex-row md:items-start lg:items-center justify-center gap-2 w-full max-w-full md:pt-14 lg:p-11 min-h-screen">
       <BackDrop
         imgSrc={data?.backdrop_path || ""}
         width={1920}
         height={1080}
         imgAlt={`Poster de ${data?.title}`}
       />
-      <div className="rounded-lg overflow-hidden flex-[0_0_auto]">
+      <h1 className="text-4xl font-bold text-center block md:hidden my-3">
+        {data?.title}
+      </h1>
+      <div className="rounded-lg overflow-hidden flex-[0_0_auto] max-w-80 lg:max-w-full">
         <Image
           src={data?.image || ""}
           width={500}
@@ -56,15 +59,18 @@ export default function DetailModule() {
           loading="eager"
           blurDataURL="/images/loading.jpeg"
           placeholder="blur"
+          className="w-full h-auto rounded-lg object-cover object-center"
         />
       </div>
       <div className="flex flex-col items-center justify-center gap-4 p-3 max-w-full">
-        <h1 className="text-4xl font-bold text-center">{data?.title}</h1>
+        <h1 className="text-4xl font-bold text-center hidden md:block">
+          {data?.title}
+        </h1>
 
         <span className="text-sm">{data?.date}</span>
         <span className="text-sm font-semibold">Nota {data?.rating} de 10</span>
 
-        <span className="text-sm font-semibold flex flex-wrap gap-2 items-center justify-center max-w-1/2">
+        <span className="text-sm font-semibold flex flex-wrap gap-2 items-center justify-center lg:max-w-1/2">
           {data?.genres.map((genre) => (
             <span
               key={genre}

@@ -14,7 +14,7 @@ export function CastItem({ imageAlt, imageUrl, name }: CastItemProps) {
         width={150}
         height={225}
         alt={imageAlt}
-        className="overflow-hidden rounded-4xl"
+        className="overflow-hidden rounded-4xl p-2"
       />
       <h4 className="text-sm font-semibold text-center">{name}</h4>
     </div>

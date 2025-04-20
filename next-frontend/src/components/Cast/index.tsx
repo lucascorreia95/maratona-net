@@ -16,10 +16,19 @@ export function Cast({ cast }: CastProps) {
     autoplay: true,
     autoplaySpeed: 5000,
     arrows: false,
+    responsive: [
+      {
+        breakpoint: 560,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
 
   return (
-    <div className="flex flex-col items-center justify-center gap-4 w-[510] w-max-full">
+    <div className="flex flex-col items-center justify-center gap-4 w-full md:max-w-[380] lg:max-w-[500]">
       <h3 className="text-xl font-semibold mb-4">Elenco</h3>
       <Carousel settings={settings}>
         {cast &&

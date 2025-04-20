@@ -1,9 +1,9 @@
-import { MenuList } from "@/types/category-types";
+import { Categories } from "@/types/category-types";
 
 export interface MenuItemProps {
-  name: MenuList;
+  name: Categories;
   isSelected: boolean;
-  onClick: (name: MenuList) => void;
+  onClick: (name: Categories) => void;
 }
 
 export function MenuItem({ name, isSelected, onClick }: MenuItemProps) {
@@ -13,7 +13,9 @@ export function MenuItem({ name, isSelected, onClick }: MenuItemProps) {
       onClick={() => onClick(name)}
     >
       <span
-        className={`text-xl ${isSelected ? "font-semibold" : "font-normal"}`}
+        className={`text-xs sm:text-sm md:text-xl text-center ${
+          isSelected ? "font-semibold" : "font-normal"
+        }`}
       >
         {name}
       </span>

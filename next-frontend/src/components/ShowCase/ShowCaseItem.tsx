@@ -60,8 +60,10 @@ export function ShowCaseItem({
       className="flex flex-col items-center justify-center gap-2 relative p-1.5"
     >
       <Image src={image} width={300} height={443} alt={`Poster de ${title}`} />
-      <h3 className="text-xl font-semibold text-center">{title}</h3>
-      <span>{date}</span>
+      <h3 className="text-base md:text-xl font-semibold text-center">
+        {title}
+      </h3>
+      <span className="text-center text-sm">{date}</span>
       <button className="absolute top-4 right-3 cursor-pointer z-10">
         <Heart color="transparent" />
       </button>
