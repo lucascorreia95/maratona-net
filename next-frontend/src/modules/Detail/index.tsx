@@ -8,10 +8,31 @@ import { ShowType } from "@/types/show-types";
 import { Error } from "@/icons/Error";
 import Link from "next/link";
 import { Loading } from "@/icons/Loading";
+import { useLocalStorage } from "@/hooks/useLocalStorage";
+import { favoriteShows } from "@/constants/local-storage-key";
+import { useCallback } from "react";
 
 export default function DetailModule() {
   const { type, id } = useParams<{ id: string; type: ShowType }>();
   const { data, loading, error } = useDetails(type, id);
+  const { addValue, valueExists } = useLocalStorage({ key: favoriteShows });
+
+  const handleFavoriteClick = useCallback(
+    (event: React.MouseEvent<HTMLElement>) => {
+      event.preventDefault();
+      event.stopPropagation();
+
+      addValue({
+        date: data!.date,
+        id: data!.id,
+        image: data!.image,
+        title: data!.title,
+        rating: data!.rating,
+        type: type,
+      });
+    },
+    [addValue, data, type]
+  );
 
   if (error) {
     return (
@@ -91,6 +112,15 @@ export default function DetailModule() {
           >
             Acessar pagina oficial
           </Link>
+        )}
+
+        {!valueExists(data!.id) && (
+          <button
+            onClick={handleFavoriteClick}
+            className="bg-red-500 text-white px-4 py-2 mt-4 rounded font-semibold cursor-pointer"
+          >
+            Marcar como Favorito
+          </button>
         )}
       </div>
     </div>

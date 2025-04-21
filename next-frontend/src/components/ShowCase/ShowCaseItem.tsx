@@ -11,6 +11,8 @@ export interface ShowCaseItemProps {
   image: string;
   rating: number;
   type: ShowType;
+  onFavoriteClick: () => void;
+  isFavorite: boolean;
 }
 
 export function ShowCaseItem({
@@ -20,6 +22,8 @@ export function ShowCaseItem({
   rating,
   title,
   type,
+  onFavoriteClick,
+  isFavorite,
 }: ShowCaseItemProps) {
   const [clientXonMouseDown, setClientXonMouseDown] = React.useState<
     number | null
@@ -52,6 +56,18 @@ export function ShowCaseItem({
     [clientXonMouseDown, clientYonMouseDown]
   );
 
+  const handleFavoriteClick = useCallback(
+    (event: React.MouseEvent<HTMLButtonElement>) => {
+      event.stopPropagation();
+      event.preventDefault();
+
+      if (onFavoriteClick) {
+        onFavoriteClick();
+      }
+    },
+    [onFavoriteClick]
+  );
+
   return (
     <Link
       href={`/details/${type}/${id}`}
@@ -64,8 +80,11 @@ export function ShowCaseItem({
         {title}
       </h3>
       <span className="text-center text-sm">{date}</span>
-      <button className="absolute top-4 right-3 cursor-pointer z-10">
-        <Heart color="transparent" />
+      <button
+        onClick={handleFavoriteClick}
+        className="absolute top-4 right-3 cursor-pointer z-10"
+      >
+        <Heart color={!isFavorite ? "transparent" : ""} />
       </button>
       <span className="text-xs">Nota {rating} de 10</span>
     </Link>

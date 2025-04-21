@@ -1,4 +1,4 @@
-import { ExternalLink } from "@/icons/ExternalLink";
+import { Heart } from "@/icons/Heart";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -23,17 +23,16 @@ export function Header() {
           </h1>
         </Link>
 
-        <span className="text-base font-semibold text-center md:flex justify-center items-center hidden">
+        <span className="text-base text-center md:flex justify-center items-center hidden">
           Encontre algo legal para assistir!
         </span>
 
         <Link
-          href="https://github.com/lucascorreia95/maratona-net"
-          target="_blank"
+          href="/favorites"
           className="text-md font-semibold md:flex justify-center items-center gap-2 hidden"
         >
-          <span>Repositorio GitHub</span>
-          <ExternalLink />
+          <span>Ver Meus Favoritos!</span>
+          <Heart />
         </Link>
       </div>
     </header>
