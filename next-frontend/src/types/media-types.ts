@@ -1,6 +1,6 @@
 import { ShowType } from "./show-types";
 
-export interface FavoriteTypes {
+export interface MediaTypes {
   id: number;
   title: string;
   date: string;

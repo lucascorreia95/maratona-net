@@ -1,6 +1,7 @@
 import { Heart } from "@/icons/Heart";
 import Image from "next/image";
 import Link from "next/link";
+import { SearchInput } from "../SearchInput";
 
 export function Header() {
   return (
@@ -23,9 +24,7 @@ export function Header() {
           </h1>
         </Link>
 
-        <span className="text-base text-center md:flex justify-center items-center hidden">
-          Encontre algo legal para assistir!
-        </span>
+        <SearchInput />
 
         <Link
           href="/favorites"

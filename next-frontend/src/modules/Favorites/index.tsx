@@ -1,5 +1,5 @@
 "use client";
-import { Favorite } from "@/components/Favorite";
+import { MediaItem } from "@/components/MediaItem";
 import { favoriteShows } from "@/constants/local-storage-key";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { Loading } from "@/icons/Loading";
@@ -47,14 +47,15 @@ export function FavoritesModule() {
     <div className="flex-1 max-w-full w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
       {valuesList.map((item) => (
         <div key={item.id}>
-          <Favorite
+          <MediaItem
             date={item.date}
             id={item.id}
             image={item.image}
             rating={item.rating}
             title={item.title}
             type={item.type}
-            onRemoveFavorite={handleRemoveFavoriteClick}
+            ctaText="Remover dos Favoritos"
+            onCtaClick={handleRemoveFavoriteClick}
           />
         </div>
       ))}

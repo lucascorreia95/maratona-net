@@ -1,23 +1,23 @@
-import { FavoriteTypes } from "@/types/favorite-types";
+import { MediaTypes } from "@/types/media-types";
 import { useState, useEffect, useCallback } from "react";
 
 interface UseLocalStorageOptions {
   key: string;
-  initialValue?: FavoriteTypes[];
+  initialValue?: MediaTypes[];
 }
 
 export function useLocalStorage(options: UseLocalStorageOptions) {
   const { key, initialValue = [] } = options;
 
   const [isLoading, setIsLoading] = useState(true);
-  const [valuesList, setValuesList] = useState<FavoriteTypes[]>(() => {
+  const [valuesList, setValuesList] = useState<MediaTypes[]>(() => {
     if (typeof window === "undefined") {
       return initialValue;
     }
     try {
       const storedValue = localStorage.getItem(key);
       if (storedValue) {
-        const parsed = JSON.parse(storedValue) as FavoriteTypes[];
+        const parsed = JSON.parse(storedValue) as MediaTypes[];
         return Array.isArray(parsed) ? parsed : initialValue;
       }
       return initialValue;
@@ -34,7 +34,7 @@ export function useLocalStorage(options: UseLocalStorageOptions) {
     try {
       const storedValue = localStorage.getItem(key);
       if (storedValue) {
-        const parsed = JSON.parse(storedValue) as FavoriteTypes[];
+        const parsed = JSON.parse(storedValue) as MediaTypes[];
         return Array.isArray(parsed) ? setValuesList(parsed) : valuesList;
       }
       return valuesList;
@@ -64,10 +64,10 @@ export function useLocalStorage(options: UseLocalStorageOptions) {
   );
 
   const addValue = useCallback(
-    (newValue: FavoriteTypes) => {
+    (newValue: MediaTypes) => {
       if (valueExists(newValue.id)) return;
       updateLocalState();
-      setValuesList((prevList: FavoriteTypes[]) => [...prevList, newValue]);
+      setValuesList((prevList: MediaTypes[]) => [...prevList, newValue]);
     },
     [valueExists, updateLocalState, setValuesList]
   );
