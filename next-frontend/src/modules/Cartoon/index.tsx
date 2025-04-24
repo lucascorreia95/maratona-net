@@ -8,11 +8,7 @@ import { Categories } from "@/types/category-types";
 import { ShowType } from "@/types/show-types";
 import { useCallback, useState } from "react";
 
-const list = [
-  CartoonCategories.POPULAR,
-  CartoonCategories.TOP_RATED,
-  CartoonCategories.AIRING_TODAY,
-];
+const list = [CartoonCategories.POPULAR, CartoonCategories.TOP_RATED];
 
 export function CartoonModule() {
   const [category, setCategory] = useState<Categories>(

@@ -47,8 +47,6 @@ export function getCategoryFilter(category: Categories, type: ShowType) {
   switch (category) {
     case CartoonCategories.POPULAR:
       return `sort_by=popularity.desc&release_date.lte=${today}`;
-    case CartoonCategories.AIRING_TODAY:
-      return `sort_by=popularity.desc&air_date.lte=${today}&air_date.gte=${today}`;
     case CartoonCategories.TOP_RATED:
       return `sort_by=vote_average.desc&vote_count.gte=200`;
     default:
