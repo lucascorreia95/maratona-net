@@ -2,6 +2,7 @@
 import { Menu } from "@/components/Menu";
 import { Loading, ShowCase } from "@/components/ShowCase";
 import useDiscover from "@/hooks/useDiscover";
+import { useMobile } from "@/hooks/useMobile";
 import { Error } from "@/icons/Error";
 import { Categories } from "@/types/category-types";
 import { MovieCategories } from "@/types/movie-categories";
@@ -17,7 +18,12 @@ const list = [
 
 export function MoviesModule() {
   const [category, setCategory] = useState<Categories>(MovieCategories.POPULAR);
-  const { data, error, loading } = useDiscover(ShowType.MOVIE, category);
+  const { isMobile } = useMobile();
+  const { data, error, loading } = useDiscover(
+    ShowType.MOVIE,
+    category,
+    isMobile
+  );
 
   const handleMenuItemClick = useCallback(async (name: Categories) => {
     setCategory(name);
@@ -55,3 +61,5 @@ export function MoviesModule() {
     </div>
   );
 }
+
+export default MoviesModule;

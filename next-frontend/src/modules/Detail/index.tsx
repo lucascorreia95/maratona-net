@@ -84,9 +84,9 @@ export default function DetailModule() {
         />
       </div>
       <div className="flex flex-col items-center justify-center gap-4 p-3 max-w-full">
-        <h1 className="text-4xl font-bold text-center hidden md:block">
+        <h2 className="text-4xl font-bold text-center hidden md:block">
           {data?.title}
-        </h1>
+        </h2>
 
         <span className="text-sm">{data?.date}</span>
         <span className="text-sm font-semibold">Nota {data?.rating} de 10</span>

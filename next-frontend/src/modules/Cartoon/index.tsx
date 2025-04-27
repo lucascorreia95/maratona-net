@@ -2,6 +2,7 @@
 import { Menu } from "@/components/Menu";
 import { Loading, ShowCase } from "@/components/ShowCase";
 import useDiscover from "@/hooks/useDiscover";
+import { useMobile } from "@/hooks/useMobile";
 import { Error } from "@/icons/Error";
 import { CartoonCategories } from "@/types/cartoon-categories";
 import { Categories } from "@/types/category-types";
@@ -14,7 +15,12 @@ export function CartoonModule() {
   const [category, setCategory] = useState<Categories>(
     CartoonCategories.POPULAR
   );
-  const { data, error, loading } = useDiscover(ShowType.CARTOON, category);
+  const { isMobile } = useMobile();
+  const { data, error, loading } = useDiscover(
+    ShowType.CARTOON,
+    category,
+    isMobile
+  );
 
   const handleMenuItemClick = useCallback((name: Categories) => {
     setCategory(name);
@@ -49,3 +55,5 @@ export function CartoonModule() {
     </div>
   );
 }
+
+export default CartoonModule;

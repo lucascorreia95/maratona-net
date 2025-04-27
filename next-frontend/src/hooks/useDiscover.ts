@@ -5,7 +5,7 @@ import { NormalizedDiscoverResponse } from "@/types/normalized-discover";
 import { ShowType } from "@/types/show-types";
 import { useState, useEffect } from "react";
 
-function useDiscover(type: ShowType, category: Categories) {
+function useDiscover(type: ShowType, category: Categories, isMobile = false) {
   const [data, setData] = useState<NormalizedDiscoverResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<unknown>(false);
@@ -30,7 +30,7 @@ function useDiscover(type: ShowType, category: Categories) {
           }
 
           if (response.data) {
-            setData(normalizeData(response.data));
+            setData(normalizeData(response.data, isMobile));
           }
 
           setLoading(false);
@@ -48,7 +48,7 @@ function useDiscover(type: ShowType, category: Categories) {
     return () => {
       isMounted = false;
     };
-  }, [type, category]);
+  }, [type, category, isMobile]);
 
   return { data, loading, error };
 }

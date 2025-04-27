@@ -3,11 +3,12 @@ import { NormalizedDiscoverResponse } from "@/types/normalized-discover";
 import { formatDate } from "./formateDate";
 
 export function normalizeData(
-  data: DiscoverResponse
+  data: DiscoverResponse,
+  isMobile: boolean
 ): NormalizedDiscoverResponse {
   const normalizedData = data.results.map((item) => {
     const { id, title, name, poster_path, backdrop_path, vote_average } = item;
-    const imageUrl = `https://image.tmdb.org/t/p/w300${
+    const imageUrl = `https://image.tmdb.org/t/p/w${isMobile ? "200" : "300"}${
       poster_path || backdrop_path
     }`;
     const date = item.first_air_date || item.release_date;

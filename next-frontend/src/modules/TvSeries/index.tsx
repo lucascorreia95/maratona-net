@@ -2,6 +2,7 @@
 import { Menu } from "@/components/Menu";
 import { Loading, ShowCase } from "@/components/ShowCase";
 import useDiscover from "@/hooks/useDiscover";
+import { useMobile } from "@/hooks/useMobile";
 import { Error } from "@/icons/Error";
 import { Categories } from "@/types/category-types";
 import { ShowType } from "@/types/show-types";
@@ -16,7 +17,8 @@ const list = [
 
 export function TvSeriesModule() {
   const [category, setCategory] = useState<Categories>(TvCategories.POPULAR);
-  const { data, error, loading } = useDiscover(ShowType.TV, category);
+  const { isMobile } = useMobile();
+  const { data, error, loading } = useDiscover(ShowType.TV, category, isMobile);
 
   const handleMenuItemClick = useCallback((name: Categories) => {
     setCategory(name);
@@ -51,3 +53,5 @@ export function TvSeriesModule() {
     </div>
   );
 }
+
+export default TvSeriesModule;

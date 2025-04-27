@@ -39,6 +39,7 @@ export function SearchInput() {
       />
       <button
         className="absolute top-[5] right-1 -z-0 cursor-pointer"
+        aria-label="Buscar"
         onClick={handleOnClick}
       >
         <Search />
