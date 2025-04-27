@@ -9,10 +9,7 @@ import { ShowType } from "@/types/show-types";
 import { TVDetailsResponse } from "@/types/tv-detail-types";
 
 export interface DetailPageProps {
-  params: {
-    type: ShowType;
-    id: string;
-  };
+  params: Promise<{ type: ShowType; id: string }>;
 }
 
 export default async function DetailPage({ params }: DetailPageProps) {
