@@ -1,3 +1,4 @@
+"use client";
 import { Carousel } from "../Carousel";
 import { Settings } from "react-slick";
 import { CastItem } from "./CastItem";

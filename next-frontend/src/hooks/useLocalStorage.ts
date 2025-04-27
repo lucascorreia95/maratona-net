@@ -8,7 +8,6 @@ interface UseLocalStorageOptions {
 
 export function useLocalStorage(options: UseLocalStorageOptions) {
   const { key, initialValue = [] } = options;
-
   const [isLoading, setIsLoading] = useState(true);
   const [valuesList, setValuesList] = useState<MediaTypes[]>(() => {
     if (typeof window === "undefined") {

@@ -30,9 +30,9 @@ export default function RootLayout({
         />
         <link rel="canonical" href="https://maratona-net.vercel.app/"></link>
       </Head>
-      <body className={`${montserrat.className} antialiased overflow-x-hidden`}>
+      <body className={`${montserrat.className} antialiased`}>
         <Header />
-        <main>
+        <main className="overflow-x-hidden max-w-full">
           <Cointainer>{children}</Cointainer>
         </main>
         <Footer />
